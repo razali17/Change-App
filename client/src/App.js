@@ -6,21 +6,23 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      message: 'Click the button to load data!'
+      message: 'Click the button to load data!',
+      charities: []
     }
   }
 
   fetchData = () => {
-    axios.get('/api/data') // You can simply make your requests to "/api/whatever you want"
+    axios.get('/api/charities') // You can simply make your requests to "/api/whatever you want"
     .then((response) => {
       // handle success
       console.log(response.data) // The entire response from the Rails API
 
-      console.log(response.data.message) // Just the message
+      console.log(response.data.charities) // Just the message
+
       this.setState({
-        message: response.data.message
+        charities: response.data.charities
       });
-    }) 
+    })
   }
 
   render() {
@@ -29,7 +31,8 @@ class App extends Component {
         <h1>{ this.state.message }</h1>
         <button onClick={this.fetchData} >
           Fetch Data
-        </button>        
+        </button>
+        {this.state.charities.map(charity => <p>{charity.name}</p>)}
       </div>
     );
   }

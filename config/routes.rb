@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   namespace :api do # /api/data
 
     get '/data', to: 'tests#index'
-    
-    resources :dogs
+    get '/charities', to: 'charities#show'
+
+    resources :charities, only: [:show]
 
   end
 
